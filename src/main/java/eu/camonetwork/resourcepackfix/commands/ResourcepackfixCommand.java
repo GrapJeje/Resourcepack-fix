@@ -1,7 +1,6 @@
 package eu.camonetwork.resourcepackfix.commands;
 
 import eu.camonetwork.resourcepackfix.Infrastructure.Data.Configs.MessagesConfig;
-import eu.camonetwork.resourcepackfix.Main;
 import eu.camonetwork.resourcepackfix.Manager;
 import eu.camonetwork.resourcepackfix.Infrastructure.Helpers.Text;
 import eu.camonetwork.resourcepackfix.commands.sub.Info;
@@ -13,8 +12,13 @@ import org.bukkit.entity.Player;
 
 public class ResourcepackfixCommand implements CommandExecutor {
 
-    private final Manager manager = Main.manager;
-    private final MessagesConfig messagesConfig = Main.messagesConfig;
+    private final Manager manager;
+    private final MessagesConfig messagesConfig;
+
+    public ResourcepackfixCommand(Manager manager, MessagesConfig messagesConfig) {
+        this.manager = manager;
+        this.messagesConfig = messagesConfig;
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
