@@ -1,0 +1,8 @@
+eu\camonetwork\resourcepackfix\Infrastructure\Helpers\Text.class
+eu\camonetwork\resourcepackfix\commands\ResourcepackfixCommand.class
+eu\camonetwork\resourcepackfix\commands\ResourcepackfixTabCompleter.class
+eu\camonetwork\resourcepackfix\Infrastructure\Events\OnEnableEvent.class
+eu\camonetwork\resourcepackfix\commands\sub\Info.class
+eu\camonetwork\resourcepackfix\commands\sub\Reload.class
+eu\camonetwork\resourcepackfix\Infrastructure\Events\ReloadEvent.class
+eu\camonetwork\resourcepackfix\Main.class
