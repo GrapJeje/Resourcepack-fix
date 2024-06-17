@@ -1,7 +1,7 @@
 items:
-  - name: 'coal chestplate'
-    material: 'IRON_CHESTPLATE'
-    custommodeldata: 1
+  - name: 'coal chestplate' # Displayname item
+    material: 'IRON_CHESTPLATE' # Item material
+    custommodeldata: 1 # De juiste custommodeldata
   - name: 'diamond sword'
     material: 'DIAMOND_SWORD'
     custommodeldata: 123
