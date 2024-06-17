@@ -4,6 +4,7 @@ import eu.camonetwork.resourcepackfix.Infrastructure.Data.Configs.DefaultConfig;
 import eu.camonetwork.resourcepackfix.Infrastructure.Data.Configs.MessagesConfig;
 import eu.camonetwork.resourcepackfix.Infrastructure.Helpers.ItemBuilder;
 import eu.camonetwork.resourcepackfix.Infrastructure.Helpers.Text;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -38,29 +39,47 @@ public class Manager {
         for (Map<String, Object> itemConfig : items) {
             if (itemConfig == null) continue;
 
-            String configName = (String) itemConfig.get("name");
-            String configMaterial = (String) itemConfig.get("material");
-            Integer configCustomModelData = (Integer) itemConfig.get("custommodeldata");
+            String itemName = (String) itemConfig.get("name");
+            String itemMaterial = (String) itemConfig.get("material");
+            Integer itemCustomModelData = (Integer) itemConfig.get("custommodeldata");
 
-            if (configName == null || configMaterial == null || configCustomModelData == null) {
+            if (itemName == null || itemMaterial == null || itemCustomModelData == null) {
                 player.sendMessage(Text.colorize(messagesConfig.invalidConfigError()));
                 continue;
             }
 
             ItemMeta itemMeta = mainHandItem.getItemMeta();
-            if (itemMeta != null && configName.equals(itemMeta.getDisplayName()) &&
-                    mainHandItem.getType().name().equals(configMaterial)) {
+            if (itemMeta == null) {
+                continue;
+            }
 
-                if (itemMeta.hasCustomModelData() && itemMeta.getCustomModelData() == configCustomModelData) {
-                    player.sendMessage(Text.colorize(messagesConfig.itemAlreadyHaveCmd()));
-                } else {
-                    ItemBuilder itemBuilder = ItemBuilder.fromType(mainHandItem.getType())
-                            .setCustomModelData(configCustomModelData);
-                    player.getInventory().setItemInMainHand(itemBuilder.getItem());
-                    player.sendMessage(Text.colorize(messagesConfig.successful()));
-                }
+            String originalDisplayName = itemMeta.hasDisplayName() ? itemMeta.getDisplayName() : null;
+
+            if (!Text.equalsIgnoreColorAndFormatting(originalDisplayName, itemName) &&
+                    !mainHandItem.getType().name().equals(itemMaterial)) {
+                continue;
+            }
+
+            if (itemMeta.hasCustomModelData() && itemMeta.getCustomModelData() == itemCustomModelData) {
+                player.sendMessage(Text.colorize(messagesConfig.itemAlreadyHaveCmd()));
                 return;
             }
+
+            ItemBuilder itemBuilder = ItemBuilder.fromType(mainHandItem.getType())
+                    .setCustomModelData(itemCustomModelData);
+
+            ItemStack updatedItem = itemBuilder.getItem();
+            ItemMeta updatedMeta = updatedItem.getItemMeta();
+
+            if (originalDisplayName != null) {
+                updatedMeta.setDisplayName(originalDisplayName);
+            }
+
+            updatedItem.setItemMeta(updatedMeta);
+            player.getInventory().setItemInMainHand(updatedItem);
+
+            player.sendMessage(Text.colorize(messagesConfig.successful()));
+            return;
         }
 
         player.sendMessage(Text.colorize(messagesConfig.noItemsFoundInConfig()));
