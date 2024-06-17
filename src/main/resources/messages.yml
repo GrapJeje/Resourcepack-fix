@@ -1,0 +1,10 @@
+prefix: "&d&lResourcepackFix &8» &r" # {PREFIX}
+noitemsinmainhand: "{PREFIX}"
+noitemsfoundinconfigerror: "{PREFIX}"
+itemalreadyhavecmd: "{PREFIX}"
+successful: "{PREFIX}"
+noitemsfoundinconfig: "{PREFIX}"
+nopermissions: "&3Je hebt geen permissions om dit uit te voeren!"
+configreloaded: "&cConfig's successfully reloaded"
+foundnonsubcommands: "&cThis is an invalid subcommand"
+invalidconfigerror: "{PREFIX}"
