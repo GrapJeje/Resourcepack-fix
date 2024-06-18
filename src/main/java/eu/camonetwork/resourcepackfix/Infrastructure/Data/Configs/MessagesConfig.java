@@ -1,6 +1,6 @@
 package eu.camonetwork.resourcepackfix.Infrastructure.Data.Configs;
 
-public class MessagesConfig extends ConfigManager{
+public class MessagesConfig extends ConfigManager {
     public MessagesConfig() {
         this.setFileName("messages.yml");
     }
@@ -18,48 +18,55 @@ public class MessagesConfig extends ConfigManager{
         return message.replace("{PREFIX}", prefix);
     }
 
-    public String noItemsInMainHand() {
-        String message = getConfig().getString("noitemsinmainhand");
+    private String getMessageOrDefault(String key, String defaultValue) {
+        String message = getConfig().getString(key);
+        if (message == null || message.isEmpty()) {
+            return defaultValue;
+        }
         return applyPrefix(message);
+    }
+
+    public String noItemsInMainHand() {
+        return getMessageOrDefault("noitemsinmainhand", "");
     }
 
     public String noItemsFoundInConfigError() {
-        String message = getConfig().getString("noitemsfoundinconfigerror");
-        return applyPrefix(message);
+        return getMessageOrDefault("noitemsfoundinconfigerror", "");
     }
 
     public String itemAlreadyHaveCmd() {
-        String message = getConfig().getString("itemalreadyhavecmd");
-        return applyPrefix(message);
+        return getMessageOrDefault("itemalreadyhavecmd", "");
     }
 
     public String successful() {
-        String message = getConfig().getString("successful");
-        return applyPrefix(message);
+        return getMessageOrDefault("successful", "");
     }
 
     public String noItemsFoundInConfig() {
-        String message = getConfig().getString("noitemsfoundinconfig");
-        return applyPrefix(message);
+        return getMessageOrDefault("noitemsfoundinconfig", "");
     }
 
     public String noPermissions() {
-        String message = getConfig().getString("nopermissions");
-        return applyPrefix(message);
+        return getMessageOrDefault("nopermissions", "");
     }
 
     public String configReloaded() {
-        String message = getConfig().getString("configreloaded");
-        return applyPrefix(message);
+        return getMessageOrDefault("configreloaded", "");
     }
 
     public String foundNonSubCommands() {
-        String message = getConfig().getString("foundnonsubcommands");
-        return applyPrefix(message);
+        return getMessageOrDefault("foundnonsubcommands", "");
     }
 
     public String invalidConfigError() {
-        String message = getConfig().getString("invalidconfigerror");
-        return applyPrefix(message);
+        return getMessageOrDefault("invalidconfigerror", "");
+    }
+
+    public String invalidItem() {
+        return getMessageOrDefault("invaliditem", "");
+    }
+
+    public String noDisplayname() {
+        return getMessageOrDefault("nodisplayname", "");
     }
 }
